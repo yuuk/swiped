@@ -83,7 +83,8 @@
             time: 200,
             dir: 1,
             right: 0,
-            left: 0
+            left: 0,
+            unit: 'px'
         };
 
         o = extend(defaultOptions, o || {});
@@ -92,12 +93,13 @@
         this.tolerance = o.tolerance;
         this.time = o.time;
         this.width = o.left || o.right;
+        this.unit = o.unit || 'px';
         this.elem = o.elem;
         this.list = o.list;
         this.dir = o.dir;
         this.group = o.group;
         this.id = Swiped.elemId++;
-        
+
         this.onOpen = typeof o.onOpen === 'function' ? o.onOpen : fn;
         this.onClose = typeof o.onClose === 'function' ? o.onClose : fn;
 
@@ -331,9 +333,8 @@
 
     Swiped.prototype.animation = function(x, duration) {
         duration = duration === undefined ? this.duration : duration;
-
         this.elem.style.cssText = cssProps.transition + ':' + cssProps.transform + ' ' + duration + 'ms; ' +
-        cssProps.transform  + ':' + 'translate3d(' + x + 'px, 0px, 0px)';
+        cssProps.transform  + ':' + 'translate3d(' + x + this.unit + ', 0px, 0px)';
     };
 
     Swiped.prototype.destroy = function(isRemoveNode) {
